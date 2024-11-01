@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: WorkSan;
+    src: url(./assets/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf);
+}
+body {
+    font-family: WorkSan;
+}
+
+/* className set cho các đường dẫn chứa đường dẫn con dạng header-child */
+.invisible-child ul{
+    display: none;
+}
+.invisible-child:hover ul {
+    display: flex;
+}
+
+
+/* định nghĩa các animation */
+
+

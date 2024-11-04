@@ -6,6 +6,9 @@ import { act, useReducer, useState } from "react"
 import Button from "../../components/uxui/button/button.style.2"
 import EmailForm from "../../components/pages/user/signup/email.form.signup"
 import ProfileForm from "../../components/pages/user/signup/profile.form.signup"
+import PasswordForm from "../../components/pages/user/signup/password.form.signup"
+import { emailRegex } from "../../ultis/regex"
+import { validConfirmPassword, validEmail, validPassword, validText } from "../../ultis/validator"
 
 const times = [
     {
@@ -48,23 +51,27 @@ export default function SignupPage() {
             }
         })
     }
-
-    
+    const validNextPoint = index == 0 ? validEmail(signupData.email) : index == 1 ? 
+    validText(signupData.firstName) && validText(signupData.lastName) && validText(signupData.userName) : 
+    validPassword(signupData.password) && validConfirmPassword(signupData.confirmPassword)
     const signupFormElement = [
         <EmailForm signupData={signupData} fieldName={'email'} action={handleEditSignupData} ></EmailForm>,
-        <ProfileForm signupData={signupData} action={handleEditSignupData} ></ProfileForm>
+        <ProfileForm signupData={signupData} action={handleEditSignupData} ></ProfileForm>,
+        <PasswordForm signupData={signupData} action={handleEditSignupData} ></PasswordForm>
     ]
     return (
-        <div className=" lg:w-[1000px] m-auto flex flex-col justify-around lg:mt-32 gap-12 lg:min-h-[550px]">
-            <div className=" text-center">
-                <h1 className=" text-4xl font-medium text-primary">Tạo tài khoản mới</h1>
-                <p className=" pt-2 text-secondary">Bạn đã có tài khoản? <Link to={'/login'} className=" underline cursor-pointer">Đăng nhập</Link></p>
-            </div>
-            <Timeline index={index} times={times}></Timeline>
+        <>
+            <div className=" lg:w-[1000px] m-auto flex flex-col justify-around lg:mt-32 gap-12 lg:min-h-[550px]">
+                <div className=" text-center">
+                    <h1 className=" text-4xl font-medium text-primary">Tạo tài khoản mới</h1>
+                    <p className=" pt-2 text-secondary">Bạn đã có tài khoản? <Link to={'/login'} className=" underline cursor-pointer">Đăng nhập</Link></p>
+                </div>
+                <Timeline index={index} times={times}></Timeline>
 
-            {signupFormElement[index]}
-            
-            <Button active={false} action={handleIncrIndex} placeHolder={'Tiếp theo'}></Button>
-        </div>
+                {signupFormElement[index]}
+                
+                <Button active={validNextPoint} action={handleIncrIndex} placeHolder={'Tiếp theo'}></Button>
+            </div>
+        </>
     )
 }

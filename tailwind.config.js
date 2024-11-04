@@ -8,16 +8,25 @@ export default {
     extend: {
       colors: {
         primary : '#025048',
-        secondary: '#f1f4f1'
+        secondary: '#f1f4f1',
+        success: '#60fd19',
+        danger: '#cc3520',
+        warning: '#f0930b'
       },
       textColor: {
         primary : '#025048',
         secondary: '#424b4a',
-        grayColor: '#424b4a'
+        grayColor: '#424b4a',
+        success: '#00B74A',
+        danger: '#cc3520',
+        warning: '#f0930b'
       },
       borderColor: {
         primary: '#025048',
-        secondary: '#f1f4f1'
+        secondary: '#f1f4f1',
+        success: '#00B74A',
+        danger: '#cc3520',
+        warning: '#f0930b'
       },
       padding: {
         deskTop : '20rem'

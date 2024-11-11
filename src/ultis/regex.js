@@ -18,10 +18,8 @@ Giải thích regex:
 ^[a-zA-Z0-9\s]+$: Đảm bảo chuỗi chỉ chứa chữ cái (a-z, A-Z), chữ số (0-9), và khoảng trắng (\s), và có ít nhất một ký tự (không được 
 bỏ trống).
 */
-const unEmptyRegex = /^[a-zA-Z0-9\s]+$/;
 
 export {
     emailRegex,
-    passwordRegex,
-    unEmptyRegex
+    passwordRegex
 }

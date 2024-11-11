@@ -9,13 +9,12 @@ status = [
     'error'
 ]
 */ 
-
-export default function TextBox({action, data, placeHolder, fieldName, heading, validator = null}) {
+export default function TextBox({action, data, placeHolder, fieldName, heading, validator = null, options = null}) {
     const [status, setStatus] = useState('unfocus')
     const validatorText = (text) => {
         if(!text.trim().length) return setStatus('unfocus')
         if(validator) {
-            const res = validator(text)
+            const res = validator({text, options})
             if(!res) return setStatus('error')
             else return setStatus('success')
         }

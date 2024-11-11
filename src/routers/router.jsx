@@ -5,9 +5,12 @@ import HomePage from "../pages/main/home.page"
 import MainLayout from "../layouts/main.layout"
 import ErrorPage from "../pages/error/error.page"
 import AboutPage from "../pages/main/about.page"
-import LoginPage from "../components/pages/user/login"
-import SignupPage from "../pages/main/signup.page"
 
+import SignupPage from "../pages/main/signup.page"
+import UserProfile from "../pages/users/UserProfile.page"
+import ProtectedRoute from '../components/middle/ProtectedRoute.Auth'
+import LoginPage from "../pages/main/login.page"
+import PersistantLogin from "../components/middle/PersistantLogin"
 const router = createBrowserRouter([
     {
         path: '/',
@@ -33,6 +36,22 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <SignupPage/>,
         errorElement: <ErrorPage/>
+    },
+    {
+        element: <PersistantLogin/>,
+        children:
+        [
+            {
+                element: <ProtectedRoute/>,
+                children: [
+                    {
+                        path: '/me',
+                        element: <UserProfile/>
+                    }
+                ]
+            }
+        ]
+        
     }
 ])
 

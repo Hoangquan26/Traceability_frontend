@@ -1,28 +1,36 @@
 'use strict'
 
-import { emailRegex, passwordRegex, unEmptyRegex } from "./regex"
+import { emailRegex, passwordRegex } from "./regex"
 
-const validEmail = (email) => {
-    return emailRegex.test(email)
+const validEmail = ({text}) => {
+    return emailRegex.test(text)
 }
 
-const validConfirmPassword = (new_password, old_password) => {
-    if(new_password != old_password)
-        return false
+
+const validPassword = ({text}) => {
+    return passwordRegex.test(text)
+}
+
+/*
+
+options = {
+sameValue: ...
+}
+*/ 
+const validText = ({text, options = null}) => {
+
+    const unvalid = !text.trim().length
+
+    if(unvalid) return false
+    if(options && options.sameValue) {
+        return (options.sameValue == text)
+    }
     return true
 }
 
-const validPassword = (password) => {
-    return passwordRegex.test(password)
-}
-
-const validText = (text) => {
-    return unEmptyRegex.test(text)
-}
 
 export {
     validEmail,
     validPassword,
-    validConfirmPassword,
     validText
 }

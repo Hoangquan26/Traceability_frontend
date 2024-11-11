@@ -1,10 +1,12 @@
 'use strict'
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import MenuChild from "./menu.child"
 import { useState } from "react"
+import useLogout from '../hooks/useLogout'
 export default function Header(){
     const [visible, setVisible] = useState(false)
-    
+    const navigate = useNavigate()
+    const logout = useLogout()
     const visibleChildMenu = () => {
         setVisible(true)
     }
@@ -12,6 +14,13 @@ export default function Header(){
     const invisibleChildMenu = () => {
         setVisible(false)
     }
+
+    const handleLogout = async() => {
+        await logout()
+        navigate('/login')
+    }
+
+
     return <div id="header" className=" z-10 bg-primary text-white sticky flex items-center justify-between p-6 lg:pr-deskTop lg:pl-deskTop ">
         <div id="header-logo">
            <span className=" text-xl">Logo</span>
@@ -33,7 +42,7 @@ export default function Header(){
                 </li>
                 <li className=" relative hover:scale-110 transition-all">
                     <NavLink
-                        to={`/`}
+                        to={`/me`}
                         className={`${({ isActive, isPending }) =>
                         isActive
                             ? "active"
@@ -111,7 +120,8 @@ export default function Header(){
                         {
                             item_name: "Đăng xuất",
                             item_url: "1",
-                            item_icon: <img className=" h-5 w-5" src="ico/out.svg"></img>
+                            item_icon: <img className=" h-5 w-5" src="ico/out.svg"></img>,
+                            item_onClick : handleLogout
                         },
                     ]}  ></MenuChild>
                 </li>

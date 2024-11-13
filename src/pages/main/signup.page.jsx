@@ -13,7 +13,7 @@ import PasswordForm from "../../components/pages/user/signup/password.form.signu
 import { validEmail, validPassword, validText } from "../../ultis/validator"
 import { HEADERS } from "../../configs/api.config"
 import AccessService from '../../services/access.service'
-import { REMOVE_TOAST_BY_ID, SHOW_LOADING_TOAST, UPDATE_TOAST_BY_ID } from "../../ultis/toast.notify"
+import { REMOVE_TOAST_BY_ID, SHOW_LOADING_TOAST, SHOW_TOAST_PROMISE, UPDATE_TOAST_BY_ID } from "../../ultis/toast.notify"
 import { ToastContainer } from 'react-toastify';
 import { ServerStatusCode } from '../../ultis/statuscode/httpStatusCode'
 import 'react-toastify/dist/ReactToastify.css'
@@ -70,22 +70,14 @@ export default function SignupPage() {
         })
     }
     const handleSignup = async() => {
-        const toast_id = SHOW_LOADING_TOAST()
-        const signupResponse = await AccessService.signup({...signupData})
-        dispatch(setStatusLoading())
-        if(signupResponse?.status == ServerStatusCode.StatusCodes.CREATED) {
-            UPDATE_TOAST_BY_ID({toast_id, options: {
-                render: `${signupResponse?.message || 'Thành công'}`,
-                isLoading: false,
-                type: 'success',
-                autoClose: 5000
-            }})
-            const {user, tokens, roles} = signupResponse?.metadata
 
+        const signupResponse = await SHOW_TOAST_PROMISE(AccessService.signup({...signupData}))
+        console.log(signupResponse)
+        if(signupResponse?.status == 'success') {
+            const {user, tokens, roles} = signupResponse?.metadata
             dispatch(setStatusSuccess())
             dispatch(setAuthUser(user || {}))
             dispatch(setAccessToken(tokens?.accessToken || ''))
-            dispatch(setRoles(roles || []))
             navigate(location.state?.from || '/')
         }
         else {
@@ -102,7 +94,6 @@ export default function SignupPage() {
     const handleCheckEmail = async() => {
         const toast_id = SHOW_LOADING_TOAST()
         const data = await AccessService.checkUserExist({...signupData})
-
         if(data.metadata) {
             UPDATE_TOAST_BY_ID({toast_id, options: {
                 render: 'Email đã được sử dụng',

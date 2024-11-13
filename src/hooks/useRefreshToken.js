@@ -9,7 +9,7 @@ import {privateApi} from '../api/privateApi'
 const useRefreshToken = () => {
     const dispatch = useDispatch()
     const refreshToken = async() => {
-        const response = await  privateApi.post(ENDPOINTS.ACCESS.REFRESH_TOKEN)
+        const response = await privateApi.post(ENDPOINTS.ACCESS.REFRESH_TOKEN)
         const accessToken = response.metadata.tokens.accessToken
         const user = response.metadata.user
         dispatch(setAuthUser({...user}))

@@ -1,8 +1,7 @@
 'use strict'
 
-import axios from 'axios'
+
 import { apiAxios, DEFAULT_HEADERS, DEFAULT_PRIVATE_HEADERS, ENDPOINTS, SERVER_BASE_URL, TIMEOUT } from '../configs/api.config'
-import { emailRegex } from '../ultis/regex'
 const controller = new AbortController()
 const signal = controller.signal
 const AccessApi = apiAxios.create({

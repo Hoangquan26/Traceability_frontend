@@ -17,7 +17,6 @@ export const SHOW_TOAST_PROMISE = async(fn) => {
         },
         success: {
             render({data}) {
-                console.log(data)
                 if(data?.status == 'error') throw new Error(data?.message)
                 return `${data?.message.toString() || 'Thành công'}`
             },
@@ -52,4 +51,9 @@ export const REMOVE_TOAST_BY_ID = ({toast_id}) => {
 
 export const SHOW_SUCCESS_TOAST = (message, options = DEFAULT_TOAST_OPTIONS) => {
     return toast.success(message, options)
+}
+
+
+export const SHOW_ERROR_TOAST = (message, options = DEFAULT_TOAST_OPTIONS) => {
+    return toast.error(message, options)
 }

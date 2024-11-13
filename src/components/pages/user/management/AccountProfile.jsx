@@ -1,6 +1,31 @@
 import Button from "../../../uxui/button/button.style.3";
 import BusinessRole from '../../../../ultis/user/business.roles'
-export default function AccountProfile ({role, business_name}) {
+import useBusinessService from "../../../../hooks/useBusinessService";
+import { SHOW_TOAST_PROMISE } from "../../../../ultis/toast.notify";
+import { useDispatch, useSelector } from "react-redux";
+import { authBusinessSelector, setBusiness, setStatusFailed, setStatusLoading, setStatusSuccess } from "../../../../store/features/auth/business.slide";
+import useCookie, { COOKIE_CONFIG } from '../../../../hooks/useCookie'
+export default function AccountProfile ({role, business_name, businessId}) {
+    const [userModeCookie, setUserModeCookie] = useCookie(COOKIE_CONFIG.USER_MODE)
+    const currentBusiness = useSelector(authBusinessSelector)
+    const dispatch = useDispatch()
+    const {switchBusinesProfile} = useBusinessService()
+    const handleSwitchProfile = async({businessId}) => {
+        try {
+            dispatch(setStatusLoading())
+            const response = await SHOW_TOAST_PROMISE(switchBusinesProfile({businessId}))
+            console.log(response)
+            if(response?.status == 'success') {
+                dispatch(setBusiness({
+                    ...response?.metadata?.foundBusiness
+                }))
+                dispatch(setStatusSuccess())
+            }
+        }
+        catch(err) {
+            dispatch(setStatusFailed())
+        }
+    }
     return  (
         <>
              <div className="flex items-center p-4 pl-8 pr-8 rounded-3xl border-[1px] border-primary bg-white shadow-sm justify-between">
@@ -13,8 +38,10 @@ export default function AccountProfile ({role, business_name}) {
                         <p>Vai trò: {role == BusinessRole.ADMIN ? 'Admin' : role == BusinessRole.MANAGER ? 'Quản lý' : 'Nhân viên'}</p>
                     </div>
                 </div>
-                <div>
-                    <Button placeHolder={'Chuyển sang tài khoản doanh nghiệp'}></Button>
+                <div className=" font-medium text-primary">
+                {
+                    currentBusiness._id == businessId ? 'Đang sử dụng tài khoản này' :  <Button active={true} action={() => {handleSwitchProfile({businessId})}} placeHolder={'Chuyển sang tài khoản doanh nghiệp'}></Button>
+                }
                 </div>
             </div>
         </>

@@ -7,7 +7,9 @@ import FormType from '../../../configs/user.form.config'
 import {default as Button1} from "../../../uxui/button/button.style.3"
 import {default as Button2} from "../../../uxui/button/button.style.4"
 import { FormStatus } from "../../../../store/appContexts/UserPageStatus.Context"
-
+import { SHOW_ERROR_TOAST, SHOW_SUCCESS_TOAST, SHOW_TOAST_PROMISE } from "../../../../ultis/toast.notify"
+import BusinessService from "../../../../services/business.service"
+import useBusinessService from "../../../../hooks/useBusinessService"
 /*
 addBusiness
 editBusiness
@@ -21,6 +23,7 @@ const initialData = {
 }
 
 export default function BusinessForm({action = FormType.ADD_BUSINESS}) {
+    const {createBusiness } = useBusinessService()
     const [data, setData] = useState(initialData)
     const [displayForm, setDisplayForm] = useContext(FormStatus)
     const handleDisplayOff = () => {
@@ -37,6 +40,17 @@ export default function BusinessForm({action = FormType.ADD_BUSINESS}) {
         })
     }
 
+    const handleSubmit = async() => {
+        const emptyValid = validText({text: data.business_name}) && validText({text: data.business_description})
+        if(!emptyValid) {
+            SHOW_ERROR_TOAST("Dữ liệu không được để trống!")   
+            return
+        }
+        const response = await SHOW_TOAST_PROMISE(createBusiness({...data}))
+        if(response?.status == "success")
+            handleDisplayOff()
+    }
+
     return (
         <div className=" flex flex-col gap-6 items-center">
             <div className=" h-48 w-48 rounded-full border-[1px] border-primary flex items-center justify-center p-2">
@@ -48,7 +62,7 @@ export default function BusinessForm({action = FormType.ADD_BUSINESS}) {
 
             <div className=" flex gap-6 mt-8 w-full">
                 <Button2 active={true} action={(handleDisplayOff)} css={'grow basis-full'} placeHolder={'Hủy'} ></Button2>
-                <Button1 css={'grow basis-full'} placeHolder={'Tạo mới'} ></Button1>
+                <Button1 action={handleSubmit} css={'grow basis-full'} placeHolder={'Tạo mới'} ></Button1>
             </div>
         </div>
     )

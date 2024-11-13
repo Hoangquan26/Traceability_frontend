@@ -55,7 +55,7 @@ export default function LoginPage(){
             <div className=" lg:w-[1000px] m-auto flex flex-col justify-around lg:mt-32 gap-12 lg:min-h-[550px]">
                 <div className=" text-center">
                     <h1 className=" text-4xl font-medium text-primary">Chào mừng bạn đã quay trở lại</h1>
-                    <p className=" pt-2 text-secondary">Bạn chưa có tài khoản? <Link to={'/login'} className=" underline cursor-pointer">Đăng ký</Link></p>
+                    <p className=" pt-2 text-secondary">Bạn chưa có tài khoản? <Link to={'/signup'} className=" underline cursor-pointer">Đăng ký</Link></p>
                     <p className=" pt-2 text-secondary">Quay về  <Link to={'/'} className=" underline cursor-pointer">trang chủ</Link></p>
                 </div>
                 <div className=" flex flex-col gap-8">

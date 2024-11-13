@@ -5,12 +5,13 @@ import { authTokenSelector } from "../../store/features/auth/auth.slice"
 import useRefreshToken from "../../hooks/useRefreshToken"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
+import PersistantBusiness from "./PersistantBusiness"
 
 const PersistantLogin = () => {
     const accessToken = useSelector(authTokenSelector)
     const dispatch = useDispatch()
     const refresh = useRefreshToken()                                                                       
-    const [loading, setLoading] = useState('false')
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         let isMounted = true
         const verifyUser = async() => {
@@ -22,16 +23,18 @@ const PersistantLogin = () => {
             }
             finally {
                 isMounted && setLoading(false)
-            }               ``
+            }               
         }
-
         !accessToken ? verifyUser () : setLoading(false)
         return () => isMounted = false
     }, [])
     return (
         <>
             {
-                loading ? 'loadiing...' : <Outlet/>
+                loading ? 'Loading...' : 
+                    <PersistantBusiness>
+                        <Outlet/>
+                    </PersistantBusiness>
             }
         </>
     )

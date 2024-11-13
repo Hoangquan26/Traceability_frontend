@@ -18,7 +18,46 @@ body {
     display: flex;
 }
 
-
 /* định nghĩa các animation */
 
 
+/* định nghĩa css pagination */
+.pagination {
+    display:  flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    font-weight: 500;
+}
+.pagination li {
+    padding: 4px;
+    text-align: center;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    border-radius: 10px;
+    user-select: none;
+    transition: all ease .2s;
+}
+
+.pagination li:hover {
+    padding: 8px;
+    background-color: #025048;
+    color: white;
+}
+
+.pagination li.previous, .pagination li.next{
+    background-color: #fff !important;
+    color: black !important;
+} 
+
+.pagination li a {
+    height: 32px;
+    width: 32px;
+}
+.pagination .pagi-active {
+    padding: 8px;
+    background-color: #025048;
+    color: white;
+    font-size: 18px;
+}

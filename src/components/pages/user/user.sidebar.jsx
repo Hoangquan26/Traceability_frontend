@@ -36,6 +36,7 @@ export default function UserSideBar({}) {
                     </div>
                 </div>
                 <div className={` flex flex-col gap-6 ${sidebarToggle ? '' : 'items-center'}`}>
+                    <h1 className={` text-lg font-medium text-primary ${sidebarToggle ? ' ' : 'bg-primary w-full h-[2px] rounded-full'}`}>{sidebarToggle ? 'Cài đặt tài khoản' : ''}</h1>
                     <NavLink className=" hover:scale-105 transition-all gap-4 flex items-center font-medium" to={''}>
                         <img className=" w-5 h-5" src="ico/user.svg"></img>
                         {sidebarToggle ? <h2>Quản lý tài khoản</h2> : ''}
@@ -55,6 +56,21 @@ export default function UserSideBar({}) {
                     <NavLink className=" hover:scale-105 transition-all gap-4 flex items-center font-medium" to={''}>
                         <img className=" w-5 h-5" src="ico/help.svg"></img>
                         {sidebarToggle ? <h2>Trợ giúp & hỗ trợ</h2> : ''}
+                    </NavLink>
+                </div>
+                <div className={` flex flex-col gap-6 ${sidebarToggle ? '' : 'items-center'}`}>
+                    <h1 className={` text-lg font-medium text-primary ${sidebarToggle ? ' ' : 'bg-primary w-full h-[2px] rounded-full'}`}>{sidebarToggle ? 'Cài đặt doanh nghiệp' : ''}</h1>
+                    <NavLink className=" hover:scale-105 transition-all gap-4 flex items-center font-medium" to={''}>
+                        <img className=" w-5 h-5" src="ico/user.group.svg"></img>
+                        {sidebarToggle ? <h2>Quản lý doanh nghiệp</h2> : ''}
+                    </NavLink>
+                    <NavLink className=" hover:scale-105 transition-all gap-4 flex items-center font-medium" to={''}>
+                        <img className=" w-5 h-5" src="ico/open.mail.svg"></img>
+                        {sidebarToggle ? <h2>Mời tham gia</h2> : ''}
+                    </NavLink>
+                    <NavLink className=" hover:scale-105 transition-all gap-4 flex items-center font-medium" to={''}>
+                        <img className=" w-5 h-5" src="ico/qrcode.svg"></img>
+                        {sidebarToggle ? <h2>Quản lý sản phẩm</h2> : ''}
                     </NavLink>
                 </div>
             </div>

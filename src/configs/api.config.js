@@ -9,6 +9,13 @@ export const ENDPOINTS = {
         LOGOUT: `${SERVER_BASE_URL}/access/logout`,
         REFRESH_TOKEN: `${SERVER_BASE_URL}/access/refreshToken`,
         CHECK_USER_EXIST: `${SERVER_BASE_URL}/access/userExist`
+    },
+    BUSINESS: {
+        CREATE_BUSINESS: `${SERVER_BASE_URL}/business/create`,
+        SWITCH_BUSINESS_PROFILE:  `${SERVER_BASE_URL}/business/switchBusiness`,
+        SWITCH_BUSINESS_USER:  `${SERVER_BASE_URL}/business/switchUser`,
+        GET_ALL_JOINED: `${SERVER_BASE_URL}/business/allJoined`,
+        REFRESH: `${SERVER_BASE_URL}/business/refresh`
     }
 }
 
@@ -28,7 +35,10 @@ export const HEADERS = {
     USERID: 'x-client-id'
 }
 
-export const apiAxios = axios.create()
+export const apiAxios = axios.create({
+    baseURL: SERVER_BASE_URL,
+    ...DEFAULT_HEADERS
+})
 apiAxios.interceptors.response.use(response => {
     return response.data
 })

@@ -11,47 +11,54 @@ import UserProfile from "../pages/users/UserProfile.page"
 import ProtectedRoute from '../components/middle/ProtectedRoute.Auth'
 import LoginPage from "../pages/main/login.page"
 import PersistantLogin from "../components/middle/PersistantLogin"
+import ProfileManagerment from "../pages/users/ProfileManagerment"
+import UserLayout from "../layouts/user.layout"
 const router = createBrowserRouter([
     {
-        path: '/',
-        element: <MainLayout/>,
-        errorElement: <ErrorPage/>,
+        element: <PersistantLogin/>,
         children: [
             {
-                element: <HomePage/>,
-                index: true
+                path: '/',
+                element: <MainLayout/>,
+                errorElement: <ErrorPage/>,
+                children: [
+                    {
+                        element: <HomePage/>,
+                        index: true
+                    },
+                    {
+                        path: '/about',
+                        element: <AboutPage/>
+                    }
+                ]
             },
             {
-                path: '/about',
-                element: <AboutPage/>
-            }
-        ]
-    },
-    {
-        path: '/login',
-        element: <LoginPage/>,
-        errorElement: <ErrorPage/>
-    },
-    {
-        path: '/signup',
-        element: <SignupPage/>,
-        errorElement: <ErrorPage/>
-    },
-    {
-        element: <PersistantLogin/>,
-        children:
-        [
+                path: '/login',
+                element: <LoginPage/>,
+                errorElement: <ErrorPage/>
+            },
+            {
+                path: '/signup',
+                element: <SignupPage/>,
+                errorElement: <ErrorPage/>
+            },
             {
                 element: <ProtectedRoute/>,
                 children: [
                     {
                         path: '/me',
-                        element: <UserProfile/>
+                        element: <UserLayout/>,
+                        children: [
+                            {
+                                index: true,
+                                element:  <ProfileManagerment/>
+                            }
+                        ]
                     }
                 ]
             }
+
         ]
-        
     }
 ])
 

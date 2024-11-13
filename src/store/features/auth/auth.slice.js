@@ -2,13 +2,13 @@
 import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     user: {
-        email: '',
-        roles: [],
-        _id: ''
+        email: null,
+        roles: null,
+        _id: null
     },
     status: 'idle', //idle / loading / success / failed
     error: null,
-    accessToken: ''
+    accessToken: null
 }
 
 export const authSlice = createSlice({

@@ -17,9 +17,9 @@ export const SHOW_TOAST_PROMISE = async(fn) => {
         },
         success: {
             render({data}) {
-                
+                console.log(data)
                 if(data?.status == 'error') throw new Error(data?.message)
-                return `${data.message.toString() || 'Thành công'}`
+                return `${data?.message.toString() || 'Thành công'}`
             },
             icon: "🟢",
             type: 'success',
@@ -27,7 +27,7 @@ export const SHOW_TOAST_PROMISE = async(fn) => {
         },
         error: {
             render({data}) {
-                return `${data.message|| 'Có lỗi xảy ra!'}`
+                return `${data?.message|| 'Có lỗi xảy ra!'}`
             },
             type: 'error',
             isLoading: false

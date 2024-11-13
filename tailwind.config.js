@@ -13,6 +13,10 @@ export default {
         danger: '#cc3520',
         warning: '#f0930b'
       },
+      backgroundColor: {
+        primary: '#025048',
+        secondary: '#F8FAFC'
+      },
       textColor: {
         primary : '#025048',
         secondary: '#424b4a',
@@ -22,7 +26,7 @@ export default {
         warning: '#f0930b'
       },
       borderColor: {
-        primary: '#025048',
+        primary: '#E2E8F0',
         secondary: '#f1f4f1',
         success: '#00B74A',
         danger: '#cc3520',

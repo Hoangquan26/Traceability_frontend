@@ -3,13 +3,19 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 import MenuChild from "./menu.child"
 import { useState } from "react"
 import useLogout from '../hooks/useLogout'
+import { useSelector } from "react-redux"
+import { authTokenSelector, authUserSelector } from "../store/features/auth/auth.slice"
+import NotifyIcon from "./uxui/NotifyItem"
 export default function Header(){
     const [visible, setVisible] = useState(false)
+    const authUser = useSelector(authUserSelector)
+    const authAccessToken = useSelector(authTokenSelector)
     const navigate = useNavigate()
     const logout = useLogout()
     const visibleChildMenu = () => {
         setVisible(true)
     }
+
 
     const invisibleChildMenu = () => {
         setVisible(false)
@@ -25,8 +31,8 @@ export default function Header(){
         <div id="header-logo">
            <span className=" text-xl">Logo</span>
         </div>
-        <div id="header-navigator" className=" grow-1 flex gap-16">
-            <ul className=" flex gap-8">
+        <div id="header-navigator" className="items-center select-none grow-1 flex gap-16">
+            <ul className="  flex gap-8">
                 <li className=" relative hover:scale-110 transition-all">
                 <NavLink
                     to={`/`}
@@ -104,27 +110,44 @@ export default function Header(){
                 <li  className=" flex items-center">
                     <img className=" h-5 w-5" src="ico/love.white.svg"></img>
                 </li>
-                <li  className=" flex items-center invisible-child relative">
-                    <img className=" h-5 w-5" src="ico/user.white.svg"></img>
-                    <MenuChild items={[
-                        {
-                            item_name: "Quản lý tài khoản",
-                            item_url: "1",
-                            item_icon: <img className=" h-5 w-5" src="ico/user.group.svg"></img>
-                        },
-                        {
-                            item_name: "Cài đặt & tài khoản",
-                            item_url: "1",
-                            item_icon: <img className=" h-5 w-5" src="ico/setting.svg"></img>
-                        },
-                        {
-                            item_name: "Đăng xuất",
-                            item_url: "1",
-                            item_icon: <img className=" h-5 w-5" src="ico/out.svg"></img>,
-                            item_onClick : handleLogout
-                        },
-                    ]}  ></MenuChild>
+                <li className=" flex items-center">
+                    <NotifyIcon/>
                 </li>
+                {
+                    !authAccessToken 
+                    ? 
+                    <>
+                        <div>
+                            <Link to={'/login'}>Đăng nhập</Link>
+                        </div>
+                    </>
+                    : 
+                    <div className=" cursor-pointer border-[1px] flex gap-2 rounded-full p-2">
+                        <li  className=" flex items-center invisible-child relative">
+                        <img className=" h-5 w-5" src="ico/user.white.svg"></img>
+                        <p className=" ml-2">{authUser.email}</p>
+                        <MenuChild items={[
+                            {
+                                item_name: "Quản lý tài khoản",
+                                item_url: "/me",
+                                item_icon: <img className=" h-5 w-5" src="ico/user.group.svg"></img>,
+                            },
+                            {
+                                item_name: "Cài đặt & tài khoản",
+                                item_url: "1",
+                                item_icon: <img className=" h-5 w-5" src="ico/setting.svg"></img>
+                            },
+                            {
+                                item_name: "Đăng xuất",
+                                item_url: "1",
+                                item_icon: <img className=" h-5 w-5" src="ico/out.svg"></img>,
+                                item_onClick : handleLogout
+                            },
+                        ]}  ></MenuChild>
+                        </li>
+                    </div>
+                }
+                
             </ul>
         </div>
 

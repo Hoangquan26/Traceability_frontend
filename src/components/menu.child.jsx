@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 export default function MenuChild({items }) {
     
-    return <ul className={` animate-scaleOut text-black absolute top-20 right-[-20px] flex bg-white shadow-lg flex-col border-gray-200 border-[1px] before:bottom-full before:w-1/2 before:right-0 before:h-14 before:absolute `}>
+    return <ul className={` rounded-md animate-scaleOut text-black absolute top-20 right-[-20px] flex bg-white shadow-lg flex-col border-gray-200 border-[1px] before:bottom-full before:w-full before:right-0 before:h-14 before:absolute `}>
         {items.map((item, index) => {
             const {item_name, item_url, item_icon, item_onClick} = item
             return (

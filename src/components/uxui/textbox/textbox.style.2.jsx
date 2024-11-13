@@ -29,7 +29,7 @@ export default function TextBox({action, data, placeHolder, fieldName, heading, 
                    <p>{status == 'unfocus'? 'Không được để trống': status == 'success' ? 'Hợp lệ' : 'Không hợp lệ'}</p>
                 </div>
             </div>
-            <input className={` rounded-md ${ status == 'unfocus'? 'focus:border-slate-800 border-slate-400': status == 'success' ? 'border-success' : 'border-danger'} focus:shadow focus:outline-none p-4  rounded-sm border-[1px]`} type="text" placeholder={placeHolder} value={data} 
+            <input className={` lg:min-w-[650px] ${ status == 'unfocus'? 'focus:border-slate-800 border-slate-400': status == 'success' ? 'border-success' : 'border-danger'} focus:shadow focus:outline-none p-4  rounded-lg border-[1px]`} type="text" placeholder={placeHolder} value={data} 
             onChange={(e) => {
                 action({
                     payload: e.target.value,

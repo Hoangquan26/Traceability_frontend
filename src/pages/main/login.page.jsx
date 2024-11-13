@@ -17,7 +17,7 @@ const initiialData = {
 }
 
 export default function LoginPage(){
-    const refresh = useRefreshToken()
+    // const refresh = useRefreshToken()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
@@ -63,10 +63,10 @@ export default function LoginPage(){
                     <TextBox heading={'Nhập mật khẩu'} fieldName={'password'} action={handleEditLoginData} data={loginData['password']} placeHolder={'Nhập mật khẩu của bạn tại dây'}></TextBox>
                 </div>
                 <Button active={true} action={handleLoginSubmit} placeHolder={'Đăng nhập'}></Button>
-                <Button active={true} action={async() => {
+                {/* <Button active={true} action={async() => {
                     const res = await refresh()
                     console.log(res)
-                }} placeHolder={'Refresh'}></Button>
+                }} placeHolder={'Refresh'}></Button> */}
             </div>
         </>
     )

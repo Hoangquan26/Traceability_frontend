@@ -12,6 +12,7 @@ const PersistantLogin = () => {
     const refresh = useRefreshToken()                                                                       
     const [loading, setLoading] = useState('false')
     useEffect(() => {
+        let isMounted = true
         const verifyUser = async() => {
             try {
                 const verifyUser = await refresh()
@@ -20,11 +21,12 @@ const PersistantLogin = () => {
                 console.log(err)
             }
             finally {
-                setLoading(false)
+                isMounted && setLoading(false)
             }               ``
         }
 
         !accessToken ? verifyUser () : setLoading(false)
+        return () => isMounted = false
     }, [])
     return (
         <>

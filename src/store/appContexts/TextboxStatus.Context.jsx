@@ -1,7 +1,5 @@
 'use strict'
 import { createContext, useState } from "react"
-
-
 export const TextBoxStatusContext = createContext()
 //use to 
 export default function TextboxStatusProvider({children}){
